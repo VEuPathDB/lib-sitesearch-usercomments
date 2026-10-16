@@ -1,4 +1,4 @@
-package org.eupathdb.sitesearch.data.comments.solr;
+package org.veupathdb.sitesearch.usercomments.solr;
 
 import org.gusdb.fgputil.SortDirection;
 

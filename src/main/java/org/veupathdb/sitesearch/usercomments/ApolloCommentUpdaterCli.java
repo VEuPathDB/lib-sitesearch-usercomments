@@ -1,4 +1,4 @@
-package org.eupathdb.sitesearch.data.comments;
+package org.veupathdb.sitesearch.usercomments;
 
 import org.gusdb.fgputil.db.platform.SupportedPlatform;
 import org.gusdb.fgputil.db.pool.DatabaseInstance;

@@ -1,4 +1,4 @@
-package org.eupathdb.sitesearch.data.comments;
+package org.veupathdb.sitesearch.usercomments;
 
 import java.sql.Types;
 import java.util.ArrayList;

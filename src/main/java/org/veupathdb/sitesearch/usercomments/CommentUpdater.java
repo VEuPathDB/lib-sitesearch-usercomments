@@ -1,4 +1,4 @@
-package org.eupathdb.sitesearch.data.comments;
+package org.veupathdb.sitesearch.usercomments;
 
 import org.apache.log4j.Logger;
 import org.eupathdb.sitesearch.data.comments.solr.FormatType;

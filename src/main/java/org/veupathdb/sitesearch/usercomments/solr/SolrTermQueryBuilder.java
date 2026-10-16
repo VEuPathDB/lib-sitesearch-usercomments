@@ -1,4 +1,4 @@
-package org.eupathdb.sitesearch.data.comments.solr;
+package org.veupathdb.sitesearch.usercomments.solr;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
