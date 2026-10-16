@@ -23,14 +23,6 @@
     <fgputil.version>3.2.11</fgputil.version>
   </properties>
 
-  <repositories>
-    <repository>
-      <id>veupathdb</id>
-      <name>VEuPathDB Libraries</name>
-      <url>https://maven.pkg.github.com/veupathdb/maven-packages</url>
-    </repository>
-  </repositories>
-
   <dependencies>
 
     <dependency>
@@ -65,5 +57,20 @@
     </dependency>
     
   </dependencies>
+
+  <scm>
+    <connection>scm:git:git@github.com:VEuPathDB/lib-sitesearch-usercomments.git</connection>
+    <developerConnection>scm:git:git@github.com:VEuPathDB/lib-sitesearch-usercomments.git</developerConnection>
+    <url>https://github.com/VEuPathDB/lib-sitesearch-usercomments</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <repositories>
+    <repository>
+      <id>veupathdb</id>
+      <name>VEuPathDB Libraries</name>
+      <url>https://maven.pkg.github.com/veupathdb/maven-packages</url>
+    </repository>
+  </repositories>
 
 </project>
