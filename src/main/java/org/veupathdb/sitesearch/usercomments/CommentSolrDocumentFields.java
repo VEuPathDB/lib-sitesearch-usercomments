@@ -15,7 +15,7 @@ public abstract class CommentSolrDocumentFields {
 
     /**
      * If this is changed in any way, the implementation of
-     * {@link #readCsvRow(String)} must also be changed.
+     * {@link SolrDocument#readCsvRow(String)} must also be changed.
      */
     public String[] getRequiredFields() {
       String[] flds = {
