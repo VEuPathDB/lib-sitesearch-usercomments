@@ -4,9 +4,10 @@ import javax.sql.DataSource;
 
 import org.gusdb.fgputil.db.pool.DatabaseInstance;
 import org.gusdb.fgputil.db.runner.SQLRunner;
-import org.eupathdb.sitesearch.data.comments.solr.SolrUrlQueryBuilder;
+import org.veupathdb.sitesearch.usercomments.solr.SolrUrlQueryBuilder;
 
-public class ApolloCommentUpdater extends CommentUpdater<String>{
+public class ApolloCommentUpdater extends CommentUpdater<String> {
+
   private String projectId;
   private static final String projectIdFieldName = "projectAux";  // field in Gene solr documents containting project ID
   

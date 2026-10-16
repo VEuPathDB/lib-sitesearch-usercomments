@@ -7,7 +7,7 @@ import javax.sql.DataSource;
 
 import org.gusdb.fgputil.db.pool.DatabaseInstance;
 import org.gusdb.fgputil.db.runner.SQLRunner;
-import org.eupathdb.sitesearch.data.comments.solr.SolrUrlQueryBuilder;
+import org.veupathdb.sitesearch.usercomments.solr.SolrUrlQueryBuilder;
 
 public class UserCommentUpdater extends CommentUpdater<Integer> {
 

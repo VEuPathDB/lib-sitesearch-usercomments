@@ -1,9 +1,9 @@
 package org.veupathdb.sitesearch.usercomments;
 
 import org.apache.log4j.Logger;
-import org.eupathdb.sitesearch.data.comments.solr.FormatType;
-import org.eupathdb.sitesearch.data.comments.solr.SolrTermQueryBuilder;
-import org.eupathdb.sitesearch.data.comments.solr.SolrUrlQueryBuilder;
+import org.veupathdb.sitesearch.usercomments.solr.FormatType;
+import org.veupathdb.sitesearch.usercomments.solr.SolrTermQueryBuilder;
+import org.veupathdb.sitesearch.usercomments.solr.SolrUrlQueryBuilder;
 import org.gusdb.fgputil.db.pool.DatabaseInstance;
 import org.gusdb.fgputil.db.runner.SQLRunner;
 import org.json.JSONArray;
