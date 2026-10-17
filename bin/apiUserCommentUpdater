@@ -1,0 +1,3 @@
+#!/bin/bash
+
+fgpJava org.veupathdb.sitesearch.usercomments.UserCommentUpdaterCli $@
