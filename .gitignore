@@ -1,4 +1,7 @@
-target
-.classpath
+target/
 .project
-.settings
+.classpath
+.settings/
+*~
+\#*
+.*

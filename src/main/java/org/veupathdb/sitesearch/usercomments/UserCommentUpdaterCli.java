@@ -26,10 +26,12 @@ public class UserCommentUpdaterCli extends CommentUpdaterCli {
         env.get(DB_LOGIN),
         env.get(DB_PASSWORD)
       );
+    boolean doUpdate = parseDoUpdate(args);
     
     try (DatabaseInstance userDb = new DatabaseInstance(dbConf)) {
       UserCommentUpdater commentUpdater = new UserCommentUpdater(env.get(SOLR_URL), userDb, env.get(COMMENT_SCHEMA));
-      commentUpdater.syncAll();
+      if (doUpdate) commentUpdater.syncAll();
+      else commentUpdater.findDocumentsToUpdate();
     }
   }  
 }

@@ -35,6 +35,12 @@
     </dependency>
 
     <dependency>
+      <groupId>org.gusdb</groupId>
+      <artifactId>fgputil-cli</artifactId>
+      <version>${fgputil.version}</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.glassfish.jersey.core</groupId>
       <artifactId>jersey-client</artifactId>
     </dependency>

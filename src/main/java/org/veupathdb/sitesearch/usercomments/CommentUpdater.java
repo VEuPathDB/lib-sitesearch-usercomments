@@ -95,7 +95,7 @@ public abstract class CommentUpdater<IDTYPE> {
    * Get an in-memory list of record IDs for those records that are out of date
    * in Solr
    */
-  private List<SolrDocument> findDocumentsToUpdate() {
+  List<SolrDocument> findDocumentsToUpdate() {
 
     // sql to find sorted (source_id, comment_id) tuples from userdb
     var sqlSelect = _updaterSql.getSortedCommentsSql(_commentSchema);
@@ -336,13 +336,12 @@ public abstract class CommentUpdater<IDTYPE> {
       res = sendSolrRequest(url, body);
 
       var read = entityReader(res);
-      if (!read.ready()) {
-        LOG.info("Read not ready when attempting to fetch documents");
+
+      // Skip first line (headers); null means the response body was empty.
+      if (read.readLine() == null) {
+        LOG.info("Empty response when attempting to fetch documents");
         return Collections.emptyMap();
       }
-
-      // Skip first line (headers)
-      read.readLine();
 
       Map<String, SolrDocument> docMap = read.lines()
         .map(SolrDocument::readCsvRow)

@@ -31,9 +31,9 @@ public class UserCommentUpdater extends CommentUpdater<Integer> {
     public String getSortedCommentsSql(String schema) {
       return "SELECT stable_id, comment_target_id as record_type, comment_id"
           + " FROM " + schema + "comments c "
-          + " AND comment_target_id = 'gene'"  // until comment updater can handle other record classes
+          + " WHERE comment_target_id = 'gene'"  // until comment updater can handle other record classes
           + " AND is_visible = true"
-          + " ORDER BY source_id DESC, c.comment_id";
+          + " ORDER BY stable_id DESC, c.comment_id";
     }
 
   }
