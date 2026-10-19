@@ -5,7 +5,7 @@
 
   <groupId>org.veupathdb</groupId>
   <artifactId>sitesearch-usercomments</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <packaging>jar</packaging>
 
   <parent>
@@ -65,7 +65,7 @@
     <connection>scm:git:git@github.com:VEuPathDB/lib-sitesearch-usercomments.git</connection>
     <developerConnection>scm:git:git@github.com:VEuPathDB/lib-sitesearch-usercomments.git</developerConnection>
     <url>https://github.com/VEuPathDB/lib-sitesearch-usercomments</url>
-    <tag>HEAD</tag>
+    <tag>v1.1.0</tag>
   </scm>
 
   <repositories>
