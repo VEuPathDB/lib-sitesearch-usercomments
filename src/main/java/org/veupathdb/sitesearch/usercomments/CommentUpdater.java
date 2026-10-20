@@ -261,7 +261,9 @@ public abstract class CommentUpdater<IDTYPE> {
     return docs;
   }
 
-  abstract SolrUrlQueryBuilder applyOptionalSolrFilters(SolrUrlQueryBuilder builder);
+  SolrUrlQueryBuilder applyOptionalSolrFilters(SolrUrlQueryBuilder builder) {
+    return builder;
+  }
 
   /**
    * For a given record, get up-to-date comment info from the database.  Format

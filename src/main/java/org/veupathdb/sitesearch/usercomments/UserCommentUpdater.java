@@ -47,11 +47,6 @@ public class UserCommentUpdater extends CommentUpdater<Integer> {
         new UserCommentUpdaterSql());
   }
   
-   @Override
-   SolrUrlQueryBuilder applyOptionalSolrFilters(SolrUrlQueryBuilder builder) {
-     return builder;
-   }
-
   /**
    * Get the up-to-date comments info from the database, for the provided wdk
    * record

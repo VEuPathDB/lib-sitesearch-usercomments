@@ -12,11 +12,10 @@ public class ApolloCommentUpdaterCli extends CommentUpdaterCli {
   private final static String DB_LOGIN = "APPDB_LOGIN";
   private final static String DB_PASSWORD = "APPDB_PASSWORD";
   private final static String SOLR_URL = "SOLR_URL";
-  private final static String PROJECT_ID = "PROJECT_ID";
  
   public static void main(String[] args) throws Exception {
 
-    String[] envVarKeys = {DB_HOST, DB_PORT, DB_NAME, DB_LOGIN, DB_PASSWORD, SOLR_URL, PROJECT_ID};
+    String[] envVarKeys = {DB_HOST, DB_PORT, DB_NAME, DB_LOGIN, DB_PASSWORD, SOLR_URL};
     validateEnv(envVarKeys);
 
     final var env = System.getenv();
@@ -29,7 +28,7 @@ public class ApolloCommentUpdaterCli extends CommentUpdaterCli {
     boolean doUpdate = parseDoUpdate(args);
     
     try (DatabaseInstance appDb = new DatabaseInstance(dbConf)) {
-      ApolloCommentUpdater commentUpdater = new ApolloCommentUpdater(env.get(SOLR_URL), appDb, env.get(PROJECT_ID));
+      ApolloCommentUpdater commentUpdater = new ApolloCommentUpdater(env.get(SOLR_URL), appDb);
       if (doUpdate) commentUpdater.syncAll();
       else commentUpdater.findDocumentsToUpdate();
     }

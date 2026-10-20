@@ -8,9 +8,6 @@ import org.veupathdb.sitesearch.usercomments.solr.SolrUrlQueryBuilder;
 
 public class ApolloCommentUpdater extends CommentUpdater<String> {
 
-  private String projectId;
-  private static final String projectIdFieldName = "projectAux";  // field in Gene solr documents containting project ID
-  
   private static class ApolloCommentSolrDocumentFields extends CommentSolrDocumentFields {
 
     @Override
@@ -22,7 +19,6 @@ public class ApolloCommentUpdater extends CommentUpdater<String> {
     String getCommentContentFieldName() {
       return "MULTITEXT__gene_apolloCommentContent";
     }
-
   }
 
   private static class ApolloCommentUpdaterSql implements CommentUpdaterSql {
@@ -38,20 +34,13 @@ public class ApolloCommentUpdater extends CommentUpdater<String> {
 
   public ApolloCommentUpdater(
       String solrUrl,
-      DatabaseInstance commentDb,
-      String projectId) {
+      DatabaseInstance commentDb) {
     
     super(solrUrl, commentDb, "dontcare",
         new ApolloCommentSolrDocumentFields(),
         new ApolloCommentUpdaterSql());
-    this.projectId = projectId;
   }
 
-   @Override
-   SolrUrlQueryBuilder applyOptionalSolrFilters(SolrUrlQueryBuilder builder) {
-     return builder.filterAndAllOf(projectIdFieldName, projectId);
-   }
-  
   /**
    * Get the up-to-date comments info from the database, for the provided wdk
    * record
