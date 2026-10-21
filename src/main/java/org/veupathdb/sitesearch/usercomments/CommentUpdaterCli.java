@@ -20,9 +20,9 @@ public class CommentUpdaterCli {
   protected static boolean parseDoUpdate(String[] args) {
     boolean doUpdate = false;
     for (String arg : args) {
-      if (arg.equals("doUpdate")) doUpdate = true;
+      if (arg.equals("--doUpdate")) doUpdate = true;
       else {
-        System.err.println("Error. Unrecognized argument '" + arg + "'. The only allowed argument is: doUpdate (update SOLR; else, report only)");
+        System.err.println("Error. Unrecognized argument '" + arg + "'. The only allowed argument is: --doUpdate (update SOLR; else, report only)");
         System.exit(1);
       }
     }
