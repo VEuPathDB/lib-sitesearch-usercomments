@@ -114,7 +114,7 @@ public abstract class CommentUpdater<IDTYPE> {
         .map(RecordInfo::toSolrId)
         .toArray(String[]::new)).values());
     
-    LOG.info("Total documents to update: " + results.toUpdate.size() + " stable_id IDs with no commented document (new comment or deprecated stable_id): " + results.toPostProcess.size());
+    LOG.info("Total documents to update: " + results.toUpdate.size() + " stable_ids with no commented document (new comment or old stable_id): " + results.toPostProcess.size());
 
     return results.toUpdate;
   }
@@ -205,8 +205,8 @@ public abstract class CommentUpdater<IDTYPE> {
     
     int extra = out.toUpdate.size() - missing;
 
-    LOG.info("Found " + out.toPostProcess.size() + " stable_id IDs with no corresponding solr document having comments (new comment or deprecated stable_id), " 
-    + missing + " documents that are missing comments (and possibly also have extra comments) and " + extra + " documents that have extra comments but no missing comments" );
+    LOG.info("Found " + out.toPostProcess.size() + " stable_ids with no corresponding solr document having comments (new comment or old stable_id), " 
+    + missing + " documents that are missing comments (and possibly also have extra comments) and " + extra + " documents that have extra comments but no missing comments. Note: old stable_ids are never new comments, so can be ignored." );
 
     return out;
   }
