@@ -87,7 +87,8 @@ public abstract class CommentUpdater<IDTYPE> {
     try {
       findDocumentsToUpdate().forEach(this::updateDocumentComment);
     } finally {
-      solrCommit();
+	LOG.info("COMMIT");
+	solrCommit();
     }
   }
   
@@ -101,7 +102,7 @@ public abstract class CommentUpdater<IDTYPE> {
     var sqlSelect = _updaterSql.getSortedCommentsSql(_commentSchema);
 
     var results = new SQLRunner(_commentDb.getDataSource(), sqlSelect)
-      .executeQuery(rs -> findStaleDocuments(fetchCommentedRecords(), rs));
+      .executeQuery(rs -> findStaleDocuments(fetchCommentedDocuments(), rs));
 
     // for source IDs that have comments, but for which no solr document that has comments was found,
     // attempt to fetch the corresponding solr document.  (either the document exists, and does not
@@ -113,7 +114,7 @@ public abstract class CommentUpdater<IDTYPE> {
         .map(RecordInfo::toSolrId)
         .toArray(String[]::new)).values());
     
-    LOG.info("Total documents to update: " + results.toUpdate.size() + "  To postprocess: " + results.toPostProcess.size());
+    LOG.info("Total documents to update: " + results.toUpdate.size() + " stable_id IDs with no commented document (new comment or deprecated stable_id): " + results.toPostProcess.size());
 
     return results.toUpdate;
   }
@@ -148,7 +149,6 @@ public abstract class CommentUpdater<IDTYPE> {
     var out   = new ProcessingResult();
 
     LOG.info("Finding stale documents");
-
     // Set of already invalidated source ids.  Used to skip
     // rows when possible
     var tmp = new HashSet<String>();
@@ -203,10 +203,10 @@ public abstract class CommentUpdater<IDTYPE> {
       // queue for update
       .forEach(out.toUpdate::add);
     
-    int delete = out.toUpdate.size() - missing;
+    int extra = out.toUpdate.size() - missing;
 
-    LOG.info("Found " + out.toPostProcess.size() + " source IDs with no corresponding solr document having comments, " 
-    + missing + " documents that need updated comments and " + delete + " documents whose comments have all been deleted" );
+    LOG.info("Found " + out.toPostProcess.size() + " stable_id IDs with no corresponding solr document having comments (new comment or deprecated stable_id), " 
+    + missing + " documents that are missing comments (and possibly also have extra comments) and " + extra + " documents that have extra comments but no missing comments" );
 
     return out;
   }
@@ -220,7 +220,7 @@ public abstract class CommentUpdater<IDTYPE> {
    * @return Map of WDK SourceID to Solr {@link SolrDocument}
    */
   Map<String, SolrDocument> fetchDocumentsById(final String[] ids) {
-    LOG.info("Attempting to fetch " + ids.length + " solr documents by (putative) ID.  (Will not be found if ID is an alias)");
+    LOG.info("Attempting to fetch " + ids.length + " solr documents by stable_id ID.  (Will not be found if stable_id ID is deprecated)");
 
     var q = new SolrTermQueryBuilder(_docFields.getIdFieldName())
       .values(ids)
@@ -233,7 +233,13 @@ public abstract class CommentUpdater<IDTYPE> {
       _solrUrl + (_solrUrl.endsWith("/") ? "select" : "/select"),
       Entity.entity(q.toString(), MediaType.APPLICATION_FORM_URLENCODED_TYPE)
     );
-    // LOG.info("Fetched " + docs.size() + " documents with query: " + q);
+    LOG.info("Fetched " + docs.size() + " documents. This implies " + (ids.length - docs.size()) + " are deprecated");
+
+    String deprecated = Arrays.stream(ids)
+	.filter(id -> !docs.containsKey(id))
+	.collect(Collectors.joining(", "));
+
+    //LOG.info("Deprecated stable_ids: " + deprecated);
 
     return docs;
   }
@@ -244,7 +250,7 @@ public abstract class CommentUpdater<IDTYPE> {
    *
    * @return Map of WDK SourceID to Solr {@link SolrDocument}
    */
-  private Map<String, SolrDocument> fetchCommentedRecords() {
+  private Map<String, SolrDocument> fetchCommentedDocuments() {
 
     SolrUrlQueryBuilder builder = SolrUrlQueryBuilder.select(_solrUrl)
       .filterAndAllOf(_docFields.getCommentContentFieldName());

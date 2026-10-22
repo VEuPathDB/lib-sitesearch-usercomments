@@ -78,7 +78,7 @@ public class UserCommentUpdater extends CommentUpdater<Integer> {
       ON c.comment_id = a.comment_id
     LEFT JOIN %scomment_ai_run ai
       ON c.comment_id = a.comment_id
-    WHERE c.stable_id = '%s'
+	WHERE c.stable_id = '%s' and c.is_visible = true;
     """.formatted(commentSchema, commentSchema, commentSchema, commentSchema, sanitizedId);
 
     return new SQLRunner(commentDbDataSource, sqlSelect)
